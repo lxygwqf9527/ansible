@@ -1,0 +1,6 @@
+- name: Update system
+  dnf:
+    name: '*'
+    state: latest
+  become: yes
+  when: ansible_distribution == 'Rocky'

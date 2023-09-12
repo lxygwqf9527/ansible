@@ -1,0 +1,7 @@
+---
+- name: Initialize Systems
+  hosts: k8s
+  become: yes # 使用sudo权限执行任务
+
+  roles:
+    - system_init

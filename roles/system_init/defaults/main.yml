@@ -1,0 +1,12 @@
+
+system_init_package:
+  CentOS: [ 'epel-release', 'nano', 'net-tools', 'wget', 'curl', 'htop','ntp',"iptables"]
+  Rocky: [ 'epel-release', 'nano', 'net-tools', 'wget', 'curl', 'htop','ntp',"iptables"]
+  Ubuntu: [ 'nano', 'net-tools', 'wget', 'curl', 'htop' ]
+
+system_init_timezone:
+  Default: "Asia/Shanghai"
+
+default_users:
+  - { name: 'user1', groups: 'wheel', password: 'password1', ssh_key: ''}
+  - { name: 'user2', groups: 'users', password: 'password2', ssh_key: ''}

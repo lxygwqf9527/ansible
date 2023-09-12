@@ -1,0 +1,13 @@
+- name: Update system
+  yum:
+    name: '*'
+    state: latest
+  become: yes
+  when: ansible_distribution == 'CentOS'
+
+- name: Install essential packages
+  yum:
+    name: "{{ system_init_package[ansible_distribution] }}"
+    state: present
+  become: yes
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Rocky'
