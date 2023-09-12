@@ -59,11 +59,11 @@
   become: yes
 
 - name: Start NTP service
-      service:
-        name: ntpd
-        state: started
-        enabled: yes
-      become: yes
+  service:
+    name: ntpd
+    state: started
+    enabled: yes
+  become: yes
 
 - name: 加载内核模块
   modprobe: name={{ item }} state=present
