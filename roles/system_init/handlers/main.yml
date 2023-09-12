@@ -3,7 +3,6 @@
   service:
     name: sshd
     state: restarted
-  become: yes
   async: 1
   poll: 0
   when: sshd_restart_needed.changed

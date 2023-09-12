@@ -12,24 +12,20 @@
 - name: Set hostname
   hostname:
     name: "{{ inventory_hostname }}"
-  become: yes
 
 - name: Disable SELinux
   selinux:
     policy: targeted
     state: disabled
-  become: yes
-
+  
 - name: Configure timezone
   timezone:
     name: "{{ system_init_timezone[Default] }}"
-  become: yes
-
+  
 - name: Set system locale
   locale_gen:
     name: en_US.UTF-8
     state: present
-  become: yes
   tags: ['localization']
 
 - name: Create users and groups
@@ -38,7 +34,6 @@
     groups: "{{ item.groups }}"
     password: "{{ item.password | password_hash('sha512') }}"
     state: present
-  become: yes
   loop: "{{ default_users }}"
   tags: ['users']
 
@@ -56,14 +51,13 @@
     src: sshd_config.j2
     dest: /etc/ssh/sshd_config
   notify: Restart SSH
-  become: yes
-
+  
 - name: Start NTP service
   service:
     name: ntpd
     state: started
     enabled: yes
-  become: yes
+  
 
 - name: 加载内核模块
   modprobe: name={{ item }} state=present

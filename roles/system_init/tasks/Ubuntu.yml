@@ -1,5 +1,5 @@
 - name: Update system
   apt:
     upgrade: yes
-  become: yes
+  
   when: ansible_distribution == 'Ubuntu'
