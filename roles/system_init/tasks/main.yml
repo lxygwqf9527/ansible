@@ -15,10 +15,10 @@
   become: yes
 
 - name: Disable SELinux
-  become: yes
   selinux:
     policy: targeted
     state: disabled
+  become: yes
 
 - name: Configure timezone
   timezone:
