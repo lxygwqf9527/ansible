@@ -1,0 +1,6 @@
+# Centos相关变量
+CONTAINER_RUNTIME:
+  install: true
+  type: containerd # containerd OR docker
+  data_dir: /data/containerd
+  nerdctl_version: "1.5.0"

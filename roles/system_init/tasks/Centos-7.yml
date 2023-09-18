@@ -9,3 +9,35 @@
     name: "{{ system_init_package[ansible_distribution] }}"
     state: present
   when: ansible_distribution == 'CentOS' or ansible_distribution == 'Rocky'
+
+- name: Install container
+  block:
+  - name: Install yum-utils
+    yum: name=yum-utils state=present
+  - name: add docker repo
+    shell: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+  - block:
+    - name: install containerd
+      yum: name=containerd state=present
+    - name: 配置containerd
+      template: src=containerd.conf.j2 dest=/etc/containerd
+    - name: install nerdctl
+      shell: 
+        cmd: |
+        wget https://github.com/containerd/nerdctl/releases/download/v{{CONTAINER_RUNTIME[nerdctl_version]}}/nerdctl-full-1{{CONTAINER_RUNTIME[nerdctl_version]-linux-amd64.tar.gz
+        mkdir /usr/local/nerdctl -p
+        tar -xf nerdctl-full-1.4.0-linux-amd64.tar.gz -C /usr/local/nerdctl
+        echo "export NERDCTL_HOME=/usr/local/nerdctl" >> /etc/profile
+        echo "export export PATH=$PATH:$NERDCTL_HOME/bin" >> /etc/profile
+        source /etc/profile
+    - name: install cni
+      shell:
+        cmd: |
+        wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
+        mkdir /opt/cni/bin -p
+        tar xf cni-plugins-linux-amd64-v1.3.0.tgz -C /opt/cni/bin/
+    when: "{{ CONTAINER_RUNTIME }} == 'containerd'"
+  - name: install docker
+    yum: name=containerd state=present
+    when: "{{ CONTAINER_RUNTIME }} == 'docker'"
+  when: "{{ CONTAINER_RUNTIME }} == 'true'"
