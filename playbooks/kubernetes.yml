@@ -1,0 +1,5 @@
+---
+- name: k8s 安装
+  hosts: k8s
+  roles:
+    - kubernetes

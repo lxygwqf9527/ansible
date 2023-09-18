@@ -58,7 +58,6 @@
     state: started
     enabled: yes
   
-
 - name: 加载内核模块
   modprobe: name={{ item }} state=present
   with_items:
@@ -131,3 +130,6 @@
 
 - name: 把SCTP列入内核模块黑名单
   copy: src=sctp.conf dest=/etc/modprobe.d/sctp.conf
+  
+- import_tasks: Centos-7.yml
+  when: ansible_facts.os_family == 'RedHat'
