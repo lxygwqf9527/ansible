@@ -24,18 +24,18 @@
     - name: install nerdctl
       shell: 
         cmd: |
-        wget https://github.com/containerd/nerdctl/releases/download/v{{CONTAINER_RUNTIME[nerdctl_version]}}/nerdctl-full-1{{CONTAINER_RUNTIME[nerdctl_version]-linux-amd64.tar.gz
+        wget https://github.com/containerd/nerdctl/releases/download/v{{CONTAINER_RUNTIME[nerdctl_version]}}/nerdctl-full-{{CONTAINER_RUNTIME[nerdctl_version]-linux-amd64.tar.gz
         mkdir /usr/local/nerdctl -p
-        tar -xf nerdctl-full-1.4.0-linux-amd64.tar.gz -C /usr/local/nerdctl
+        tar -xf nerdctl-full-{{CONTAINER_RUNTIME[nerdctl_version]}}-linux-amd64.tar.gz -C /usr/local/nerdctl
         echo "export NERDCTL_HOME=/usr/local/nerdctl" >> /etc/profile
         echo "export export PATH=$PATH:$NERDCTL_HOME/bin" >> /etc/profile
         source /etc/profile
     - name: install cni
       shell:
         cmd: |
-        wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
+        wget https://github.com/containernetworking/plugins/releases/download/v{{CONTAINER_RUNTIME[cni_version]}}/cni-plugins-linux-amd64-{{CONTAINER_RUNTIME[cni_version]}}.tgz
         mkdir /opt/cni/bin -p
-        tar xf cni-plugins-linux-amd64-v1.3.0.tgz -C /opt/cni/bin/
+        tar xf cni-plugins-linux-amd64-{{CONTAINER_RUNTIME[cni_version]}}.tgz -C /opt/cni/bin/
     when: "{{ CONTAINER_RUNTIME }} == 'containerd'"
   - name: install docker
     yum: name=containerd state=present
