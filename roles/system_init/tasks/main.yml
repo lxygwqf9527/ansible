@@ -26,7 +26,7 @@
   
 - name: Configure timezone
   timezone:
-    name: "{{ system_init_timezone[Default] }}"
+    name: "{{ system_init_timezone.Default }}"
   
 - name: Set system locale
   locale_gen:
