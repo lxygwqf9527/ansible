@@ -23,12 +23,12 @@
       template: src=containerd.conf.j2 dest=/etc/containerd
     - name: install nerdctl
       shell: |
-        wget https://github.com/containerd/nerdctl/releases/download/v{{CONTAINER_RUNTIME[nerdctl_version]}}/nerdctl-full-{{CONTAINER_RUNTIME[nerdctl_version]-linux-amd64.tar.gz
-        mkdir /usr/local/nerdctl -p
-        tar -xf nerdctl-full-{{CONTAINER_RUNTIME[nerdctl_version]}}-linux-amd64.tar.gz -C /usr/local/nerdctl
-        echo "export NERDCTL_HOME=/usr/local/nerdctl" >> /etc/profile
-        echo "export export PATH=$PATH:$NERDCTL_HOME/bin" >> /etc/profile
-        source /etc/profile
+        wget https://github.com/containerd/nerdctl/releases/download/v{{CONTAINER_RUNTIME[nerdctl_version]}}/nerdctl-full-{{CONTAINER_RUNTIME[nerdctl_version]-linux-amd64.tar.gz;
+        mkdir /usr/local/nerdctl -p;
+        tar -xf nerdctl-full-{{CONTAINER_RUNTIME[nerdctl_version]}}-linux-amd64.tar.gz -C /usr/local/nerdctl;
+        echo "export NERDCTL_HOME=/usr/local/nerdctl" >> /etc/profile;
+        echo "export export PATH=$PATH:$NERDCTL_HOME/bin" >> /etc/profile;
+        source /etc/profile;
     - name: install cni
       shell: |
         wget https://github.com/containernetworking/plugins/releases/download/v{{CONTAINER_RUNTIME[cni_version]}}/cni-plugins-linux-amd64-{{CONTAINER_RUNTIME[cni_version]}}.tgz

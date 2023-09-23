@@ -22,7 +22,7 @@
       yum: name=containerd state=present
     - name: install nerdctl
       shell: |
-         wget https://github.com/containerd/nerdctl/releases/download/v{{CONTAINER_RUNTIME[nerdctl_version]}}/nerdctl-full-{{CONTAINER_RUNTIME[nerdctl_version]-linux-amd64.tar.gz
+        wget https://github.com/containerd/nerdctl/releases/download/v{{CONTAINER_RUNTIME[nerdctl_version]}}/nerdctl-full-{{CONTAINER_RUNTIME[nerdctl_version]-linux-amd64.tar.gz
         mkdir /usr/local/nerdctl -p
         tar -xf nerdctl-full-{{CONTAINER_RUNTIME[nerdctl_version]}}-linux-amd64.tar.gz -C /usr/local/nerdctl
         echo "export NERDCTL_HOME=/usr/local/nerdctl" >> /etc/profile
