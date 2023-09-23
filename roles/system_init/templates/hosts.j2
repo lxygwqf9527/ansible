@@ -1,0 +1,5 @@
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+{% for host in groups['k8s-master'] %}
+{% for item in (groups['k8s-master'] + groups['k8s-node'] + groups['etcd'] + groups['k8s-utils']|default([]))|unique -%}
+{{ hostvars[item]['ip'] }}  {{ item }}.{{ dns_domain }} {{ item }}
+{% endfor %}

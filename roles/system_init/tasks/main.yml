@@ -75,6 +75,10 @@
     - nf_conntrack
   ignore_errors: true
 
+- name: 尝试加载nf_conntrack_ipv4
+  shell: 'modprobe nf_conntrack_ipv4 || echo "NoFound"'
+  register: NF_CONNTRACK_IPV4
+
 - name: 启用systemd自动加载模块服务
   service: name=systemd-modules-load enabled=yes
 
@@ -136,6 +140,9 @@
 
 - name: 把SCTP列入内核模块黑名单
   copy: src=sctp.conf dest=/etc/modprobe.d/sctp.conf
+
+- name: 生成hosts文件
+  template: src=hosts.j2 dest=/etc/hosts
   
 - import_tasks: Centos-7.yml
   when: "{{ ansible_facts.distribution }}-{{ ansible_facts.distribution_major_version }} == Centos-7"

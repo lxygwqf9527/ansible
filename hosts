@@ -2,6 +2,7 @@
 k8s-master
 k8s-node
 k8s-utils
+etcd
 [k8s-master]
 k8s01  ansible_ssh_host=172.20.201.181
 k8s02  ansible_ssh_host=172.20.201.182
@@ -10,4 +11,8 @@ k8s03  ansible_ssh_host=172.20.201.183
 k8s04  ansible_ssh_host=172.20.201.184
 k8s05  ansible_ssh_host=172.20.201.185
 [k8s-utils]
-utils ansible_ssh_host=172.20.201.187
+harbor.nano.com ansible_ssh_host=172.20.201.187
+[etcd]
+etcd01  ansible_ssh_host=172.20.201.181
+etcd02  ansible_ssh_host=172.20.201.182
+etcd03  ansible_ssh_host=172.20.201.183

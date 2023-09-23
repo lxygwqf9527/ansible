@@ -4,3 +4,5 @@ CONTAINER_RUNTIME:
   type: containerd # containerd OR docker
   data_dir: /data/containerd
   nerdctl_version: "1.5.0"
+
+PROXY_MODE: ipvs
