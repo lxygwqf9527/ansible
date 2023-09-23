@@ -1,6 +1,5 @@
 
-- import_tasks: Centos-7.yml
-  when: ansible_facts.os_family == 'RedHat'
+
   
 - name: Set OS dependent variables
   include_vars: '{{ item }}'
@@ -11,3 +10,36 @@
         - '{{ ansible_facts.os_family }}-{{ ansible_facts.distribution_major_version }}.yml'
       skip: true
   tags: always
+
+- import_tasks: Centos-7.yml
+  when: ansible_facts.os_family == 'RedHat'
+
+- name: NGINX安装
+  block:
+  - name: Install nginx dep
+    yum:
+      name: "{{ NGINX_DEP_PACKAGE[ansible_distribution] }}"
+      state: present
+  - name: create nginxuser
+    user:
+    name: "{{ item.name }}"
+    groups: "{{ item.groups }}"
+    password: "{{ item.password | password_hash('sha512') }}"
+    shell: "{{ item.shell }}"
+    create_home: "{{ item.create_home }}"
+    state: present
+  - name: install nginx
+    shell:
+      cmd: |
+        ./configure --prefix=/usr/local/nginx/ --with-pcre --with-http_ssl_module --with-http_stub_status_module --with-stream --with-http_stub_status_module --with-http_gzip_static_module
+        make  &&  make install
+  - name: 使用systemctl管理
+    copy: src=nginx/nginx.service dest=/usr/lib/systemd/system/nginx.service
+  - name: 主配置文件
+    copy: src=nginx/nginx.conf dest=/usr/local/nginx/conf/nginx.conf
+  loop: "{{ NGINX_USER }}"
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'Rocky'
+
+- name: Keepalived安装
+
+- name: ETCD安装

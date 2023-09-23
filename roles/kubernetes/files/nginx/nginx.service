@@ -1,0 +1,14 @@
+[Unit]
+Description=The nginx HTTP and reverse proxy server
+After=network.target sshd-keygen.service
+[Service]
+Type=forking
+EnvironmentFile=/etc/sysconfig/sshd
+ExecStartPre=/usr/local/nginx/sbin/nginx -t -c /usr/local/nginx/conf/nginx.conf
+ExecStart=/usr/local/nginx/sbin/nginx -c /usr/local/nginx/conf/nginx.conf
+ExecReload=/usr/local/nginx/sbin/nginx -s reload
+ExecStop=/usr/local/nginx/sbin/nginx -s stop
+Restart=on-failure
+RestartSec=42s
+[Install]
+WantedBy=multi-user.target

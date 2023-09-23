@@ -1,0 +1,6 @@
+NGINX_DEP_PACKAGE:
+  CentOS: ['pcre', 'pcre-devel', 'openssl','openssl-devel','gcc','gcc-c++','automake','autoconf','libtool','make','wget','vim','lrzsz']
+  Rocky: ['pcre', 'pcre-devel', 'openssl','openssl-devel','gcc','gcc-c++','automake','autoconf','libtool','make','wget','vim','lrzsz']
+
+NGINX_USER:
+  - { name: 'nginx', groups: 'nginx', password: '', ssh_key: '', shell: '/sbin/nologin', create_home: false}

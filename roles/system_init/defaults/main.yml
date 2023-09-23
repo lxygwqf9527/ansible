@@ -1,4 +1,3 @@
-
 system_init_package:
   CentOS: [ 'epel-release', 'nano', 'net-tools', 'wget', 'curl', 'htop','ntp',"iptables"]
   Rocky: [ 'epel-release', 'nano', 'net-tools', 'wget', 'curl', 'htop','ntp',"iptables"]
